@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import Script from "next/script";
 import { useEffect } from "react";
 
-const GA_TRACKING_ID = 'G-MR55RXLRKB'; // Hardcoded tracking ID
+const GA_TRACKING_ID = 'G-MR55RXLRKKB'; // Hardcoded tracking ID
 
 const addPageView = (url) => {
   if (!GA_TRACKING_ID) return;
