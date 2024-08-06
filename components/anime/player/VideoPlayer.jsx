@@ -6,7 +6,7 @@ import { MediaPlayer, MediaProvider, Track } from '@vidstack/react';
 import { defaultLayoutIcons, DefaultVideoLayout, DefaultAudioLayout } from '@vidstack/react/player/layouts/default';
 
 // Constants
-const corsLink = process.env.NEXT_PUBLIC_CORS_REQUEST_LINK || "http://localhost:8080"; // Use local CORS Anywhere proxy
+const corsLink = process.env.NEXT_PUBLIC_CORS_REQUEST_LINK || "http://localhost:10000"; // Use local CORS Anywhere proxy
 
 const VideoPlayer = ({ episodeTitle, episodeName, episodeNumber, onVideoLoad }) => {
   const [episodeDataLink, setEpisodeDataLink] = useState(null);
@@ -19,7 +19,7 @@ const VideoPlayer = ({ episodeTitle, episodeName, episodeNumber, onVideoLoad }) 
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
-    return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}.000`;
+    return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}.000`;
   };
 
   // Generate VTT content from intros and outros
@@ -139,7 +139,7 @@ const VideoPlayer = ({ episodeTitle, episodeName, episodeNumber, onVideoLoad }) 
               src={track.url}
               kind="subtitles"
               label={track.lang}
-              key={track.content}
+              key={track.url}
               default={track.lang === "English"}
             />
           ))}

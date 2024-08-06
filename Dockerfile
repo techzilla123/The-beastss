@@ -6,8 +6,6 @@ FROM node:lts-alpine
 WORKDIR /munchyroll
 
 # Copy application dependency manifests to the container image.
-# A wildcard is used to ensure both package.json AND package-lock.json are copied.
-# Copying this separately prevents re-running npm install on every code change.
 COPY package*.json ./
 
 # Install dependencies.
@@ -18,6 +16,7 @@ COPY . .
 
 # Set environment variables.
 ENV NEXT_PUBLIC_CONSUMET_API="https://consumet-public.vercel.app"
+ENV NEXT_PUBLIC_CORS_REQUEST_LINK="http://localhost:10000"
 
 # Build the application.
 RUN npm run build
@@ -27,24 +26,3 @@ EXPOSE 3000
 
 # Run the web service on container startup.
 CMD ["npm", "start"]
-
-# Use the official Node.js image.
-# https://hub.docker.com/_/node
-FROM node:lts-alpine
-
-# Create and change to the app directory.
-WORKDIR /usr/src/app
-
-# Copy application dependency manifests to the container image.
-# A wildcard is used to ensure both package.json AND package-lock.json are copied.
-# Copying this separately prevents re-running npm install on every code change.
-COPY package*.json ./
-
-# Install production dependencies.
-RUN npm install --only=production
-
-# Copy local code to the container image.
-COPY . .
-
-# Run the CORS proxy on container startup.
-CMD ["node", "server.js"]
