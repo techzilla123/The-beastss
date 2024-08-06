@@ -7,7 +7,7 @@ const path = require('path');
 function checkAndCreateEnv() {
   const envPath = path.resolve(__dirname, '.env');
   if (!fs.existsSync(envPath)) {
-    fs.writeFileSync(envPath, 'PORT=8080\nHOST=0.0.0.0\n');
+    fs.writeFileSync(envPath, 'PORT=10001\nHOST=0.0.0.0\n');
     console.log('.env file created');
   }
 }

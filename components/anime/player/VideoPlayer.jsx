@@ -5,7 +5,7 @@ import '@vidstack/react/player/styles/default/layouts/video.css';
 import { MediaPlayer, MediaProvider, Track } from '@vidstack/react';
 import { defaultLayoutIcons, DefaultVideoLayout, DefaultAudioLayout } from '@vidstack/react/player/layouts/default';
 
-const corsLink = process.env.NEXT_PUBLIC_CORS_REQUEST_LINK || "http://localhost:10001";
+const corsLink = process.env.NEXT_PUBLIC_CORS_REQUEST_LINK || "http://localhost:8080";
 
 const VideoPlayer = ({ episodeTitle, episodeName, episodeNumber, onVideoLoad }) => {
   const [episodeDataLink, setEpisodeDataLink] = useState(null);
