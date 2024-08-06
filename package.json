@@ -7,7 +7,7 @@
     "build": "node clean.js && next build",
     "start": "concurrently \"npm run start:cors-proxy\" \"next start\"",
     "lint": "next lint",
-    "start:cors-proxy": "node my-cors-proxy/node_modules/cors-anywhere/server.js"
+    "start:cors-proxy": "PORT=10001 node my-cors-proxy/node_modules/cors-anywhere/server.js"
   },
   "dependencies": {
     "@tawk.to/tawk-messenger-react": "^2.0.2",
