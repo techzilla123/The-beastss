@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "concurrently \"npm run start:cors-proxy\" \"next dev\"",
     "build": "next build",
-    "start": "next start",
+    "start": "concurrently \"npm run start:cors-proxy\" \"next start\"",
     "lint": "next lint",
-    "start:cors-proxy": "node my-cors-proxy/node_modules/cors-anywhere/server.js"
+    "start:cors-proxy": "node server.js"
   },
   "dependencies": {
     "@tawk.to/tawk-messenger-react": "^2.0.2",
