@@ -4,11 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"npm run start:cors-proxy\" \"next dev\"",
-    "build": "npm run clean && next build",
+    "build": "node clean.js && next build",
     "start": "concurrently \"npm run start:cors-proxy\" \"next start\"",
     "lint": "next lint",
-    "start:cors-proxy": "node my-cors-proxy/node_modules/cors-anywhere/server.js",
-    "clean": "powershell -Command \"Remove-Item -Recurse -Force .next\""
+    "start:cors-proxy": "node my-cors-proxy/node_modules/cors-anywhere/server.js"
   },
   "dependencies": {
     "@tawk.to/tawk-messenger-react": "^2.0.2",
