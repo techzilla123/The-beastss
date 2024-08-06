@@ -1,9 +1,36 @@
-const cors_proxy = require('cors-anywhere');
+var host = process.env.HOST || '0.0.0.0';
+var port = process.env.PORT || 10000;
 
+var originBlacklist = parseEnvList(process.env.CORSANYWHERE_BLACKLIST);
+var originWhitelist = parseEnvList(process.env.CORSANYWHERE_WHITELIST);
+function parseEnvList(env) {
+  if (!env) {
+    return [];
+  }
+  return env.split(',');
+}
+
+var checkRateLimit = require('./lib/rate-limit')(process.env.CORSANYWHERE_RATELIMIT);
+
+var cors_proxy = require('./lib/cors-anywhere');
 cors_proxy.createServer({
-  originWhitelist: [], // Allow all origins
+  originBlacklist: originBlacklist,
+  originWhitelist: originWhitelist,
   requireHeader: ['origin', 'x-requested-with'],
-  removeHeaders: ['cookie', 'cookie2']
-}).listen(8080, '0.0.0.0', function() {
-  console.log('Running CORS Anywhere on 0.0.0.0:8080');
+  checkRateLimit: checkRateLimit,
+  removeHeaders: [
+    'cookie',
+    'cookie2',
+    'x-request-start',
+    'x-request-id',
+    'via',
+    'connect-time',
+    'total-route-time',
+  ],
+  redirectSameOrigin: true,
+  httpProxyOptions: {
+    xfwd: false,
+  },
+}).listen(port, host, function() {
+  console.log('Running CORS Anywhere on ' + host + ':' + port);
 });

@@ -5,8 +5,7 @@ import '@vidstack/react/player/styles/default/layouts/video.css';
 import { MediaPlayer, MediaProvider, Track } from '@vidstack/react';
 import { defaultLayoutIcons, DefaultVideoLayout, DefaultAudioLayout } from '@vidstack/react/player/layouts/default';
 
-// Constants
-const corsLink = process.env.NEXT_PUBLIC_CORS_REQUEST_LINK || "http://localhost:8080"; // Use updated CORS Anywhere proxy port
+const corsLink = process.env.NEXT_PUBLIC_CORS_REQUEST_LINK || "http://localhost:8080";
 
 const VideoPlayer = ({ episodeTitle, episodeName, episodeNumber, onVideoLoad }) => {
   const [episodeDataLink, setEpisodeDataLink] = useState(null);
@@ -14,7 +13,6 @@ const VideoPlayer = ({ episodeTitle, episodeName, episodeNumber, onVideoLoad }) 
   const [vttContent, setVttContent] = useState(null);
   const [isZoro, setIsZoro] = useState(true);
 
-  // Format time in the format HH:MM:SS.MMM
   const formatTime = (seconds) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -22,7 +20,6 @@ const VideoPlayer = ({ episodeTitle, episodeName, episodeNumber, onVideoLoad }) 
     return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}.000`;
   };
 
-  // Generate VTT content from intros and outros
   const generateVTT = (intros, outros) => {
     let vtt = "WEBVTT\n\n";
     
@@ -55,7 +52,6 @@ const VideoPlayer = ({ episodeTitle, episodeName, episodeNumber, onVideoLoad }) 
         }
 
         if (episodeData) {
-          // Process video URL
           if (episodeData.sources && episodeData.sources.length > 0) {
             const defaultSource = isZoro
               ? episodeData.sources[0]
@@ -71,7 +67,6 @@ const VideoPlayer = ({ episodeTitle, episodeName, episodeNumber, onVideoLoad }) 
             setEpisodeDataLink(null);
           }
 
-          // Process subtitles
           if (episodeData.subtitles && episodeData.subtitles.length > 0) {
             setEpisodeSubtitleLink(episodeData.subtitles);
           } else {
@@ -104,7 +99,7 @@ const VideoPlayer = ({ episodeTitle, episodeName, episodeNumber, onVideoLoad }) 
   const handleDownloadVideo = () => {
     if (episodeDataLink) {
       const downloadUrl = `/api/download/video?url=${encodeURIComponent(episodeDataLink)}`;
-      window.location.href = downloadUrl; // Trigger the download
+      window.location.href = downloadUrl;
     } else {
       console.error("Video URL is not available for download.");
     }
@@ -114,7 +109,7 @@ const VideoPlayer = ({ episodeTitle, episodeName, episodeNumber, onVideoLoad }) 
     const subtitlesUrl = episodeSubtitleLink && episodeSubtitleLink.length > 0 ? episodeSubtitleLink[0].url : null;
     if (subtitlesUrl) {
       const downloadUrl = `/api/download/subtitles?url=${encodeURIComponent(subtitlesUrl)}`;
-      window.location.href = downloadUrl; // Trigger the download
+      window.location.href = downloadUrl;
     } else {
       alert("No subtitles available for download.");
     }
@@ -122,8 +117,6 @@ const VideoPlayer = ({ episodeTitle, episodeName, episodeNumber, onVideoLoad }) 
 
   return (
     <div>
-      {/* <button onClick={handleDownloadVideo}>Download Video</button>
-      <button onClick={handleDownloadSubtitles}>Download Subtitles</button> */}
       <MediaPlayer
         title={episodeThing}
         src={episodeDataLink}
