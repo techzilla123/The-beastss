@@ -7,7 +7,6 @@ import { defaultLayoutIcons, DefaultVideoLayout, DefaultAudioLayout } from '@vid
 
 // Constants
 const corsLink = process.env.NEXT_PUBLIC_CORS_REQUEST_LINK || "http://localhost:8080"; // Use updated CORS Anywhere proxy port
-// Use local CORS Anywhere proxy
 
 const VideoPlayer = ({ episodeTitle, episodeName, episodeNumber, onVideoLoad }) => {
   const [episodeDataLink, setEpisodeDataLink] = useState(null);
