@@ -1,5 +1,4 @@
 # Use the official Node.js image.
-# https://hub.docker.com/_/node
 FROM node:lts-alpine
 
 # Create and change to the app directory.
@@ -16,7 +15,7 @@ COPY . .
 
 # Set environment variables.
 ENV NEXT_PUBLIC_CONSUMET_API="https://consumet-public.vercel.app"
-ENV NEXT_PUBLIC_CORS_REQUEST_LINK="http://localhost:10000"
+ENV NEXT_PUBLIC_CORS_REQUEST_LINK="http://localhost:8080"
 
 # Build the application.
 RUN npm run build
