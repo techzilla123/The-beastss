@@ -1,11 +1,13 @@
-const createServer = require('cors-anywhere').createServer;
+const { createServer } = require('../my-cors-proxy/node_modules/cors-anywhere');
+require('dotenv').config();
 
 module.exports = (req, res) => {
-  const originBlacklist = [];
-  const originWhitelist = [];
+  const originBlacklist = parseEnvList(process.env.CORSANYWHERE_BLACKLIST);
+  const originWhitelist = parseEnvList(process.env.CORSANYWHERE_WHITELIST);
+
   const checkRateLimit = require('../my-cors-proxy/node_modules/cors-anywhere/lib/rate-limit')(process.env.CORSANYWHERE_RATELIMIT);
 
-  const corsProxy = createServer({
+  const cors_proxy = createServer({
     originBlacklist: originBlacklist,
     originWhitelist: originWhitelist,
     requireHeader: ['origin', 'x-requested-with'],
@@ -25,7 +27,12 @@ module.exports = (req, res) => {
     },
   });
 
-  req.url = req.url.replace(/^\/api\/cors-proxy/, '');
-
-  corsProxy.emit('request', req, res);
+  cors_proxy.emit('request', req, res);
 };
+
+function parseEnvList(env) {
+  if (!env) {
+    return [];
+  }
+  return env.split(',');
+}
