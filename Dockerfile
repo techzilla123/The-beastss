@@ -2,7 +2,7 @@
 FROM node:lts-alpine
 
 # Create and change to the app directory.
-WORKDIR /
+WORKDIR /app
 
 # Copy application dependency manifests to the container image.
 COPY package*.json ./
@@ -18,6 +18,9 @@ ENV NEXT_PUBLIC_CONSUMET_API="https://consumet-public.vercel.app"
 ENV NEXT_PUBLIC_CORS_REQUEST_LINK="http://localhost:8080"
 ENV HOST="0.0.0.0"
 ENV PORT="8080"
+
+# Build the application.
+RUN npm run build
 
 # Expose the ports for the app and the CORS proxy server.
 EXPOSE 3000
