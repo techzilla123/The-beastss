@@ -57,7 +57,7 @@ const VideoPlayer = ({ episodeTitle, episodeName, episodeNumber, onVideoLoad }) 
               ? episodeData.sources[0]
               : episodeData.sources.find(source => source.quality === "default");
 
-            const videoUrl = corsLink ? `${corsLink}/${defaultSource.url}` : defaultSource.url;
+            const videoUrl = corsLink ? `${corsLink}/${encodeURIComponent(defaultSource.url)}` : defaultSource.url;
             setEpisodeDataLink(videoUrl);
             if (onVideoLoad) {
               onVideoLoad(videoUrl);
@@ -154,6 +154,8 @@ const VideoPlayer = ({ episodeTitle, episodeName, episodeNumber, onVideoLoad }) 
           />
         )}
       </MediaPlayer>
+      <button onClick={handleDownloadVideo}>Download Video</button>
+      <button onClick={handleDownloadSubtitles}>Download Subtitles</button>
     </div>
   );
 };
