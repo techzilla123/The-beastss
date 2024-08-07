@@ -2,7 +2,7 @@
 FROM node:lts-alpine
 
 # Create and change to the app directory.
-WORKDIR /The-Beast-0c25f4932d7041414ea2866f365aa96b5bb78e5b
+WORKDIR /
 
 # Copy application dependency manifests to the container image.
 COPY package*.json ./
@@ -24,4 +24,4 @@ EXPOSE 3000
 EXPOSE 8080
 
 # Start both the Next.js application and the CORS proxy server.
-CMD ["sh", "-c", "npm start & node The-Beast-0c25f4932d7041414ea2866f365aa96b5bb78e5b/my-cors-proxy/node_modules/cors-anywhere/server.js"]
+CMD ["sh", "-c", "npm start & node /my-cors-proxy/node_modules/cors-anywhere/server.js"]
