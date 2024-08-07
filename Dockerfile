@@ -15,7 +15,7 @@ COPY . .
 
 # Set environment variables.
 ENV NEXT_PUBLIC_CONSUMET_API="https://consumet-public.vercel.app"
-ENV NEXT_PUBLIC_CORS_REQUEST_LINK="http://localhost:8080"
+ENV NEXT_PUBLIC_CORS_REQUEST_LINK="https://the-beastss-ff4dztm5q-techzilla123s-projects.vercel.app/api/cors-proxy"
 
 # Build the application.
 RUN npm run build

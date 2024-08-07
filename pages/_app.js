@@ -10,7 +10,7 @@ import GoogleAnalytics from "../components/GoogleAnalytics";
 // Define the configuration variables directly
 const config = {
   consumetApi: 'https://consumet-public.vercel.app',
-  corsRequestLink: 'http://localhost:8080',
+  corsRequestLink: 'https://the-beastss-ff4dztm5q-techzilla123s-projects.vercel.app/api/cors-proxy',
   tawktoPropertyId: '',
   tawktoWidgetId: '',
   gaTrackingId: '',
