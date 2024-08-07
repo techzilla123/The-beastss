@@ -1,9 +1,9 @@
 import "../styles/globals.css";
 import "../styles/nprogress.css";
 import { QueryClient, QueryClientProvider } from "react-query";
-import React, { useEffect } from "react";
+import React from "react";
 import ReactGA from "react-ga";
-import { useRouter } from "next/router";
+import { events } from "next/router";
 import nprogress from "nprogress";
 import GoogleAnalytics from "../components/GoogleAnalytics";
 
@@ -24,31 +24,22 @@ if (config.gaTrackingId) {
   ReactGA.initialize(config.gaTrackingId);
 }
 
+events.on("routeChangeStart", nprogress.start);
+events.on("routeChangeError", nprogress.done);
+events.on("routeChangeComplete", nprogress.done);
+
 function MyApp({ Component, pageProps }) {
   const queryClient = new QueryClient();
-  const router = useRouter();
-
-  useEffect(() => {
-    const handleRouteChangeStart = () => nprogress.start();
-    const handleRouteChangeComplete = () => nprogress.done();
-    const handleRouteChangeError = () => nprogress.done();
-
-    router.events.on("routeChangeStart", handleRouteChangeStart);
-    router.events.on("routeChangeComplete", handleRouteChangeComplete);
-    router.events.on("routeChangeError", handleRouteChangeError);
-
-    return () => {
-      router.events.off("routeChangeStart", handleRouteChangeStart);
-      router.events.off("routeChangeComplete", handleRouteChangeComplete);
-      router.events.off("routeChangeError", handleRouteChangeError);
-    };
-  }, [router]);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      {config.gaTrackingId && <GoogleAnalytics />}
-      <Component {...pageProps} />
-    </QueryClientProvider>
+    <>
+      <QueryClientProvider client={queryClient}>
+        {config.gaTrackingId && (
+          <GoogleAnalytics />
+        )}
+        <Component {...pageProps} />
+      </QueryClientProvider>
+    </>
   );
 }
 
