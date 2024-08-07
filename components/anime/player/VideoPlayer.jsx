@@ -5,7 +5,7 @@ import '@vidstack/react/player/styles/default/layouts/video.css';
 import { MediaPlayer, MediaProvider, Track } from '@vidstack/react';
 import { defaultLayoutIcons, DefaultVideoLayout, DefaultAudioLayout } from '@vidstack/react/player/layouts/default';
 
-const corsLink = process.env.NEXT_PUBLIC_CORS_REQUEST_LINK || "http://localhost:8080";
+const corsLink = process.env.NEXT_PUBLIC_CORS_REQUEST_LINK || "https://the-beastss-h45goiewv-techzilla123s-projects.vercel.app/api/cors-proxy";
 
 const VideoPlayer = ({ episodeTitle, episodeName, episodeNumber, onVideoLoad }) => {
   const [episodeDataLink, setEpisodeDataLink] = useState(null);
@@ -17,7 +17,7 @@ const VideoPlayer = ({ episodeTitle, episodeName, episodeNumber, onVideoLoad }) 
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
-    return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}.000`;
+    return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}.000`;
   };
 
   const generateVTT = (intros, outros) => {
@@ -57,7 +57,7 @@ const VideoPlayer = ({ episodeTitle, episodeName, episodeNumber, onVideoLoad }) 
               ? episodeData.sources[0]
               : episodeData.sources.find(source => source.quality === "default");
 
-            const videoUrl = corsLink ? `${corsLink}/${encodeURIComponent(defaultSource.url)}` : defaultSource.url;
+            const videoUrl = corsLink ? `${corsLink}/${defaultSource.url}` : defaultSource.url;
             setEpisodeDataLink(videoUrl);
             if (onVideoLoad) {
               onVideoLoad(videoUrl);
@@ -154,8 +154,6 @@ const VideoPlayer = ({ episodeTitle, episodeName, episodeNumber, onVideoLoad }) 
           />
         )}
       </MediaPlayer>
-      <button onClick={handleDownloadVideo}>Download Video</button>
-      <button onClick={handleDownloadSubtitles}>Download Subtitles</button>
     </div>
   );
 };
